@@ -1,0 +1,53 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace advant_code_ex_2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            List<string> lines = new List<string>();
+            lines = File.ReadAllLines("file.txt").ToList();
+            int scoreTotal = 0;
+
+            foreach (string line in lines)
+            {
+                char opponent = line[0];
+                char me       = line[2];
+                int win = 0; 
+                if (opponent == 'A' && me == 'Y' || opponent == 'B' && me == 'Z' || opponent == 'C' && me == 'X')
+                {
+                    win = 6;
+                }else if (opponent == 'B' && me == 'X')
+                {
+                    win = 0;
+                }else if(opponent == 'C' && me == 'Z' || opponent == 'A' && me == 'X' || opponent == 'B' && me == 'Y')
+                {
+                    win = 3;
+                }
+                int score = 0;
+                if (me == 'Y')
+                {
+                    score = 2;
+                } 
+                else if (me == 'X') 
+                {
+                    score = 1;
+                }
+                else if (me == 'Z')
+                {
+                    score = 3;
+                }
+
+                scoreTotal += score + win;
+            }
+
+            Console.WriteLine(scoreTotal);  
+        }
+    }
+}
