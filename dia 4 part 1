@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace advant_code_ex_4_part_1
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] pairs = File.ReadAllLines("file.txt");
+            List<string> list = new List<string>(); 
+            
+            int count = 0;
+            foreach (string item in pairs)
+            {
+                List<(int, int)> assignments = new List<(int, int)>();
+                list = item.Split(',').ToList();
+                int controlo = 0;
+                foreach (var item2 in list)
+                {
+                    int start = Convert.ToInt32(item2.Substring(0, item2.IndexOf('-')));
+                    int end = Convert.ToInt16(item2.Substring(item2.IndexOf('-') + 1));
+
+                    assignments.Add((start, end));
+                    controlo++;
+                    if (controlo == 2)
+                    {
+                        var (start1, end1) = assignments[0];
+                        var (start2, end2) = assignments[1];
+
+                        if((start1 >= start2 && end1 <= end2) || (start2 >= start1 && end2 <= end1))
+                        {
+                            count++;
+                        }
+                        
+                    }
+                }
+            }
+            Console.WriteLine($"{count}");
+        }
+    }
+}
