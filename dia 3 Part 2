@@ -1,0 +1,63 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace advant_code_ex_3_part_2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] lines = File.ReadAllLines("file.txt");
+            List<string> first = new List<string>();
+            first.Add("");
+            first.Add("");
+            first.Add("");
+            string low = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            int ver = low.Length;
+            string controlo = "";
+            int points = 0;
+            int i = 0;
+            foreach (var item in lines)
+            {
+                if (i<3)
+                {
+                    first[i] = item;
+                    i++;
+
+                }
+                if (i == 3)
+                {
+                    controlo = "";
+                    foreach (char item2 in first[0])
+                    {
+                        foreach (char item3 in first[1])
+                        {
+                            if (item2 != item3)
+                            {
+                                continue;
+                            }
+                            foreach (char item4 in first[2])
+                            {
+                                if (item2 == item3 && item3 == item4)
+                                {
+                                    if (string.IsNullOrEmpty(controlo))
+                                    {
+                                        controlo = item2.ToString();
+                                        points += low.IndexOf(item2) + 1;
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    i = 0;
+                }
+            }
+            Console.WriteLine($"{points}");
+        }
+    }
+}
