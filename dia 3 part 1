@@ -1,0 +1,49 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace advant_code_ex_3
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+
+            string[] lines = File.ReadAllLines("file.txt");
+            string low = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            int ver = low.Length;
+            string first = "";
+            string second = "";
+            int fim = 0;
+            int meio = 0;
+            int points = 0;
+            foreach (var item in lines)
+            {
+                fim  = item.Length;
+                meio  = item.Length/2;
+                first = item.Substring(0, meio);
+                second = item.Substring(meio, meio);
+                string contolo = "";
+                foreach (char item2 in first)
+                {
+                    foreach (char item3 in second)
+                    {
+                        if (item2.Equals(item3))
+                        {
+                            if (String.IsNullOrEmpty(contolo))
+                            {
+                                contolo = $"{item2}";
+                                points += low.IndexOf(item2) + 1;
+                            }
+                            
+                        }
+                    }
+                }
+            }
+            Console.WriteLine($"{points}");
+        }
+    }
+}
